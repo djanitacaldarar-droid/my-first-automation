@@ -1,0 +1,25 @@
+from playwright.sync_api import sync_playwright
+
+with sync_playwright() as p:
+  browser = p.chromium.launch(headless=False, slow_mo=200)
+  page = browser.new_page()
+
+  # 1. Открываем YouTube
+  page.goto("https://www.youtube.com")
+
+  # 2. Ждем 1 секунды, чтобы страница полностью прогрузилась
+  page.wait_for_timeout(1000)
+
+  # 3. Находим поисковую строку по ее названию (placeholder="Search") и кликаем
+  page.get_by_placeholder("Search").click()
+
+  # 4. Вводим нужный текст
+  page.keyboard.type("Michael Jakson")
+
+  # 5. Нажимаем Enter
+  page.keyboard.press("Enter")
+
+  # 6. Смотрим на результаты
+  page.wait_for_timeout(5000)
+
+  browser.close()
