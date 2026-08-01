@@ -4,22 +4,22 @@ with sync_playwright() as p:
   browser = p.chromium.launch(headless=False, slow_mo=200)
   page = browser.new_page()
 
-  # 1. Открываем YouTube
+  # 1. Open YouTube
   page.goto("https://www.youtube.com")
 
-  # 2. Ждем 1 секунды, чтобы страница полностью прогрузилась
+  # 2. Wait 1 second for the page to fully load
   page.wait_for_timeout(1000)
 
-  # 3. Находим поисковую строку по ее названию (placeholder="Search") и кликаем
+  # 3. Find the search bar by its placeholder ("Search") and click it
   page.get_by_placeholder("Search").click()
 
-  # 4. Вводим нужный текст
-  page.keyboard.type("Michael Jakson")
+  # 4. Type the search text 
+  page.keyboard.type("Lessons from a QA Atomation Engineer")
 
-  # 5. Нажимаем Enter
+  # 5. Press Enter
   page.keyboard.press("Enter")
 
-  # 6. Смотрим на результаты
+  # 6. Look at the results
   page.wait_for_timeout(5000)
 
   browser.close()
